@@ -1,4 +1,4 @@
-name: Regression Test Example
+name: Regression Tests
 on:
   push:
     branches:
