@@ -27,4 +27,4 @@ jobs:
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token ${{ secrets.EXTERNAL_REPO_PAT }}" \
         https://api.github.com/repos/mosaicml/testing/actions/workflows/slack-callback.yaml/dispatches \
-        -d '{"ref":"refs/heads/main", "inputs":{"test_suite_passed": true}}
+        -d '{"ref":"refs/heads/main", "inputs":{"test_suite_passed": true}}'
