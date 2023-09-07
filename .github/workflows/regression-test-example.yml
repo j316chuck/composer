@@ -19,23 +19,11 @@ jobs:
   smoketest:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
-    strategy:
-      matrix:
-        python_version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python_version }}
-      - name: Setup
-        run: |
-          set -ex
-          python -m pip install --upgrade 'pip<23' wheel
-          python -m pip install --upgrade .
-          python -m pip install pytest==7.2.1 pytest_codeblocks==0.16.1
-      - name: Run checks
-        run: |
-          pytest tests/test_smoketest.py
+    - name: Trigger workflow in external repo
+      run: |
+        curl -X POST \
+             -H "Authorization: token ${{ secrets.EXTERNAL_REPO_PAT }}" \
+             -H "Accept: application/vnd.github.v3+json" \
+             https://api.github.com/repos/mosaicml/testing/actions/workflows/nightly-callback.yaml/dispatches
+             -d '{"ref":"main", "inputs": {"test_suite_passed" : false }}'
