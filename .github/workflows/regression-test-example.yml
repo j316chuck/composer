@@ -16,7 +16,7 @@ defaults:
   run:
     working-directory: .
 jobs:
-  smoketest:
+  regression-test-callback:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     steps:
@@ -25,5 +25,5 @@ jobs:
         curl -X POST \
              -H "Authorization: token ${{ secrets.EXTERNAL_REPO_PAT }}" \
              -H "Accept: application/vnd.github.v3+json" \
-             https://api.github.com/repos/mosaicml/testing/actions/workflows/nightly-callback.yaml/dispatches
+             https://api.github.com/repos/mosaicml/testing/actions/workflows/slack-callback.yaml/dispatches
              -d '{"ref":"main", "inputs": {"test_suite_passed" : false }}'
